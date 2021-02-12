@@ -64,7 +64,7 @@ export default class WelcomeScreen extends Component{
     userLogin=(emailId, password)=>{
         firebase.auth().signInWithEmailAndPassword(emailId, password)
         .then(()=>{
-         this.props.navigation.navigate('DonateScreen')
+         this.props.navigation.navigate('HomeScreen')
            
         })
         .catch((error)=>{

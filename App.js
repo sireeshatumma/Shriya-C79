@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import WelcomeScreen from './screens/WelcomeScreen';
-import DonateScreen from './screens/DonateScreen';
-import RequestScreen from './screens/RequestScreen';
+import ExchangeScreen from './screens/ExchangeScreen';
+import HomeScreen from './screens/HomeScreen';
+import { createBottomTabNavigator } from 'react-navigation-tabs'
+
 export default class App extends Component {
   render(){
     return(
@@ -14,11 +16,20 @@ export default class App extends Component {
 }
 
 
+const AppTabNavigator = createBottomTabNavigator({
+ Home: {
+    screen: HomeScreen,
+  
+  },
+ Exchange: {
+    screen: ExchangeScreen,
+   
+  }
+});
 
 const switchNavigator = createSwitchNavigator({
-  WelcomeScreen:{screen: WelcomeScreen},
-  Donate:{screen:DonateScreen},
-  Request:{screen:RequestScreen}
+  Welcome:{screen: WelcomeScreen},
+  Tabs:{screen:AppTabNavigator}
 })
 
 const AppContainer =  createAppContainer(switchNavigator);
