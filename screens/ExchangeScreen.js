@@ -30,7 +30,7 @@ export default class ExchangeScreen extends React.Component{
             '',
             [
                 {text:'OK', onPress:()=>{
-                    this.props.navigation.navigate('HomeScreen')
+                    this.props.navigation.navigate('Home')
                 }}
             ]
         );

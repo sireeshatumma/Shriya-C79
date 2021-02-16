@@ -64,7 +64,7 @@ export default class WelcomeScreen extends Component{
     userLogin=(emailId, password)=>{
         firebase.auth().signInWithEmailAndPassword(emailId, password)
         .then(()=>{
-         this.props.navigation.navigate('HomeScreen')
+            this.props.navigation.navigate('Exchange')
            
         })
         .catch((error)=>{
@@ -89,6 +89,7 @@ export default class WelcomeScreen extends Component{
                              maxLength={8}
                              style={styles.modalInputs}
                              onChangeText={(text)=>{
+                                 
                                  this.setState({
                                      firstName:text
                                  })

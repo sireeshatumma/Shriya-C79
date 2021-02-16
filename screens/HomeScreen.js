@@ -6,14 +6,16 @@ import firebase from 'firebase';
 
 export default class HomeScreen extends React.Component{
     constructor(){
-        super()
+        super();
         this.state = {
           userName  : firebase.auth().currentUser.email,
           requestedThingsList : []
-        }}
+        }
+    this.requestRef=null
+    }
 
         
-  requestedThingsList =()=>{
+  getRequestedThingsList =()=>{
     this.requestRef = db.collection("requested_things")
     .onSnapshot((snapshot)=>{
       var requestedThingsList = snapshot.docs.map((doc) => doc.data())
@@ -21,6 +23,15 @@ export default class HomeScreen extends React.Component{
         requestedBooksList : requestedThingsList
       });
     })
+  }
+
+
+  componentDidMount=()=>{
+        this.getRequestedThingsList();
+  }
+
+  componentWillUnmount=()=>{
+      this.requestRef();
   }
 
   keyExtractor=(item, index)=> index.toString()
@@ -49,7 +60,7 @@ export default class HomeScreen extends React.Component{
             <View>
                 <FlatList
                 keyExtractor={this.keyExtractor}
-                data={this.state.allRequests}
+                data={this.state.requestedThingsList}
                 renderItem={this.renderItem}
                 />
                
