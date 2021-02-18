@@ -17,14 +17,15 @@ export default class App extends Component {
 
 
 const AppTabNavigator = createBottomTabNavigator({
+  Exchange: {
+    screen: ExchangeScreen,
+   
+  },
  Home: {
     screen: HomeScreen,
   
   },
- Exchange: {
-    screen: ExchangeScreen,
-   
-  }
+ 
 });
 
 const switchNavigator = createSwitchNavigator({

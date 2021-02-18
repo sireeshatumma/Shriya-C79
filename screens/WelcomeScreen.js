@@ -64,7 +64,7 @@ export default class WelcomeScreen extends Component{
     userLogin=(emailId, password)=>{
         firebase.auth().signInWithEmailAndPassword(emailId, password)
         .then(()=>{
-            this.props.navigation.navigate('Exchange')
+            this.props.navigation.navigate('Tabs')
            
         })
         .catch((error)=>{
@@ -185,7 +185,7 @@ return(
 
      <TextInput style={styles.screenInputs} placeholder="Email ID " keyboardType="email-address"/>
      <TextInput style={styles.screenInputs} placeholder="password" secureTextEntry={true}/>
-        <TouchableOpacity onPress={ this.userLogin(this.state.emailId, this.state.password)} style={styles.screenButton}>
+        <TouchableOpacity  onPress={ this.userLogin(this.state.emailId, this.state.password)} style={styles.screenButton}>
             <Text style={styles.screenButtonText}>
                 Log in
             </Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Alert, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, FlatList, StyleSheet} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import db from '../config';
 import firebase from 'firebase'; 
@@ -9,18 +9,18 @@ export default class HomeScreen extends React.Component{
         super();
         this.state = {
           userName  : firebase.auth().currentUser.email,
-          requestedThingsList : []
+          requestedThingsList : [],
         }
     this.requestRef=null
     }
 
         
-  getRequestedThingsList =()=>{
+  getRequestedThingsList=()=>{
     this.requestRef = db.collection("requested_things")
     .onSnapshot((snapshot)=>{
       var requestedThingsList = snapshot.docs.map((doc) => doc.data())
       this.setState({
-        requestedBooksList : requestedThingsList
+        requestedThinList : requestedThingsList
       });
     })
   }
@@ -34,34 +34,35 @@ export default class HomeScreen extends React.Component{
       this.requestRef();
   }
 
-  keyExtractor=(item, index)=> index.toString()
+  
 
-        renderItem=({item,i})=>{
-            console.log(item.item_name);
-            return(
-                <ListItem
-                key={i}
-                title={item.item_name}
-                subtitle={item.description}
-                titleStyle={{color:'black', fontWeight:'bold'}}
-                rightElement={
-                    <TouchableOpacity>
-                        <Text>Exchange</Text>
-                    </TouchableOpacity>
-                }
-                bottomDivider
-                />
-            )
-        }
-
+       
 
     render(){
         return(
             <View>
-                <FlatList
-                keyExtractor={this.keyExtractor}
+                <Text>Home</Text>
+                <FlatList style={styles.list}
+                keyExtractor={(item)=> item.request_id}
                 data={this.state.requestedThingsList}
-                renderItem={this.renderItem}
+                renderItem={({item,i})=>{
+                    console.log(item.item_name);
+                    return(
+                        <ListItem
+                        key={i}
+                        title={item.item_name}
+                        subtitle={item.description}
+                        titleStyle={{color:'black', fontWeight:'bold'}}
+                        rightElement={
+                            <TouchableOpacity>
+                                <Text>Exchange</Text>
+                            </TouchableOpacity>
+                        }
+                        bottomDivider
+                        />
+                    )
+                }}
+        
                 />
                
                
@@ -69,3 +70,12 @@ export default class HomeScreen extends React.Component{
         );
     }
 }
+
+const styles = StyleSheet.create({
+
+    list:{
+        color:'cyan',
+        borderColor:'blue',
+        borderWidth:2
+    }
+})
