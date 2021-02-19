@@ -60,6 +60,14 @@ export default class HomeScreen extends React.Component{
   render(){
     return(
       <View style={{flex:1}}>
+         <Text
+               style={{backgroundColor:'#DC5874',
+                        color:'#fff',
+                        fontFamily:'serif',
+                        fontSize:30,
+                        alignSelf:'center'
+                       }}
+               >Home</Text>
        
         <View style={{flex:1}}>
           {
@@ -71,8 +79,9 @@ export default class HomeScreen extends React.Component{
             )
             :(
               <FlatList
+              style={styles.list}
                 keyExtractor={this.keyExtractor}
-                data={this.state.allRequests}
+                data={this.state.requestedThingsList}
                 renderItem={this.renderItem}
               />
             )

@@ -7,7 +7,7 @@ export default class AppHeader extends React.Component {
         return(
             <View>
                 <Text style={styles.AppHeader}>Barter System </Text>
-                <Text style={styles.Tagline}>Exchange Things </Text>
+                
             </View>
         );
     }
