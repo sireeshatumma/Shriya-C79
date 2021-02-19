@@ -21,7 +21,7 @@ const AppTabNavigator = createBottomTabNavigator({
     screen: ExchangeScreen,
    
   },
- Home: {
+ HomeScreen: {
     screen: HomeScreen,
   
   },

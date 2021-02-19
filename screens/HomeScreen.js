@@ -18,13 +18,33 @@ export default class HomeScreen extends React.Component{
   getRequestedThingsList=()=>{
     this.requestRef = db.collection("requested_things")
     .onSnapshot((snapshot)=>{
-      var requestedThingsList = snapshot.docs.map((doc) => doc.data())
-      this.setState({
-        requestedThinList : requestedThingsList
-      });
+      var requestedThingsList = []
+      snapshot.forEach((doc) => {
+        requestedThingsList.push(doc.data())
+      })
+      this.setState({requestedThingsList:requestedThingsList})
     })
   }
 
+  keyExtractor = (item, index) => index.toString()
+
+  renderItem = ( {item, i} ) =>{
+    console.log(item.item_name);
+    return (
+      <ListItem
+        key={i}
+        title={item.item_name}
+        subtitle={item.description}
+        titleStyle={{ color: 'black', fontWeight: 'bold' }}
+        rightElement={
+            <TouchableOpacity style={styles.button}>
+              <Text style={{color:'#ffff'}}>Exchange</Text>
+            </TouchableOpacity>
+          }
+        bottomDivider
+      />
+    )
+  }
 
   componentDidMount=()=>{
         this.getRequestedThingsList();
@@ -36,39 +56,31 @@ export default class HomeScreen extends React.Component{
 
   
 
+    
+  render(){
+    return(
+      <View style={{flex:1}}>
        
-
-    render(){
-        return(
-            <View>
-                <Text>Home</Text>
-                <FlatList style={styles.list}
-                keyExtractor={(item)=> item.request_id}
-                data={this.state.requestedThingsList}
-                renderItem={({item,i})=>{
-                    console.log(item.item_name);
-                    return(
-                        <ListItem
-                        key={i}
-                        title={item.item_name}
-                        subtitle={item.description}
-                        titleStyle={{color:'black', fontWeight:'bold'}}
-                        rightElement={
-                            <TouchableOpacity>
-                                <Text>Exchange</Text>
-                            </TouchableOpacity>
-                        }
-                        bottomDivider
-                        />
-                    )
-                }}
-        
-                />
-               
-               
-            </View>
-        );
-    }
+        <View style={{flex:1}}>
+          {
+            this.state.requestedThingsList.length === 0
+            ?(
+              <View style={{flex:1, fontSize: 20, justifyContent:'center', alignItems:'center'}}>
+                <Text style={{ fontSize: 20}}>List of all Barter</Text>
+              </View>
+            )
+            :(
+              <FlatList
+                keyExtractor={this.keyExtractor}
+                data={this.state.allRequests}
+                renderItem={this.renderItem}
+              />
+            )
+          }
+        </View>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({

@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TextInput, TouchableOpacity, Alert, StyleSheet} from 'react-native';
 import db from '../config';
 import firebase from 'firebase'; 
+import { KeyboardAvoidingView } from 'react-native';
 
 export default class ExchangeScreen extends React.Component{
     constructor(){
@@ -14,10 +15,7 @@ export default class ExchangeScreen extends React.Component{
     }
 
     
-  createUniqueId(){
-    return Math.random().toString(36).substring(7);
-  }
-
+  
     addItem=(itemName, description)=>{
         var userName = this.state.userName
         var randomRequestId = this.createUniqueId()
@@ -37,7 +35,7 @@ export default class ExchangeScreen extends React.Component{
             '',
             [
                 {text:'OK', onPress:()=>{
-                    this.props.navigation.navigate('Home')
+                    this.props.navigation.navigate('HomeScreen')
                 }}
             ]
         );
@@ -46,6 +44,7 @@ export default class ExchangeScreen extends React.Component{
     render(){
         return(
             <View style={styles.container}>
+               
                 <TextInput placeholder="Item"
                 style={styles.inputs}
                  onChangeText={(text)=>{
@@ -73,7 +72,7 @@ export default class ExchangeScreen extends React.Component{
                 }}>
                 <Text>Add Item</Text>
                 </TouchableOpacity>
-
+                
             </View>
         )
     }
