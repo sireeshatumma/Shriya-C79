@@ -25,11 +25,12 @@ export default class WelcomeScreen extends Component{
             address:'',
             contact:'',
             confirmPassword:'',
-            isModalVisible:'false'
+            isModalVisible:false
         }
     }
 
     userSignUp=(emailId, password, confirmPassword)=>{
+        console.log("emailId",emailId)
         if(password!== confirmPassword){
             return Alert.alert("password doesn't match \n Check Again")
         }else{
@@ -62,6 +63,7 @@ export default class WelcomeScreen extends Component{
     }
 
     userLogin=(emailId, password)=>{
+        console.log("emailId",this.state.emailId,emailId,password)
         firebase.auth().signInWithEmailAndPassword(emailId, password)
         .then(()=>{
             this.props.navigation.navigate('Exchange')
@@ -74,8 +76,10 @@ export default class WelcomeScreen extends Component{
         })
     }
 
-    modal=()=>{
+    showModal=()=>{
+        console.log("modal",this.state.isModalVisible)
         return(
+        
             <Modal animationType="fade"
             transparent={true}
             visible={this.state.isModalVisible}>
@@ -83,7 +87,7 @@ export default class WelcomeScreen extends Component{
                     <ScrollView  style={{width:'100%'}}>
                         <KeyboardAvoidingView style={{width:'100%'}}>
                             <Text style={styles.modalHeading}>Registration</Text>
-
+                            <View>
                             <TextInput
                              placeholder={"First Name"}
                              maxLength={8}
@@ -144,13 +148,13 @@ export default class WelcomeScreen extends Component{
                                      confirmPassword:text
                                  })
                              }}/>
-
+                            </View>
                              <View>
                              <TouchableOpacity style={styles.modalButton} onPress={()=>{this.setState({"isModalVisible":false})}} >
                                      <Text style={styles.modalButtonText}>Cancel</Text>
                                  </TouchableOpacity>
                                  
-                                 <TouchableOpacity  onPress={()=>{
+                             <TouchableOpacity  onPress={()=>{
                                          this.userSignUp(this.state.emailId,this.state.password,this.state.confirmPassword)
                                      }} style={styles.modalButton}>
                                     
@@ -159,8 +163,8 @@ export default class WelcomeScreen extends Component{
                                          Register
                                      </Text>
                                  </TouchableOpacity>
-                             </View>
-                             <View>
+                            
+                             
                                 
                              </View>
                         </KeyboardAvoidingView>
@@ -178,23 +182,24 @@ return(
      <Text style={styles.heading}>Welcome!</Text>
 
      <View>
-         {this.modal()}
+         {this.showModal()}
      </View>
 
      <View>
 
-     <TextInput style={styles.screenInputs} placeholder="Email ID " keyboardType="email-address"/>
-     <TextInput style={styles.screenInputs} placeholder="password" secureTextEntry={true}/>
-        <TouchableOpacity  onPress={ this.userLogin(this.state.emailId, this.state.password)} style={styles.screenButton}>
-            <Text style={styles.screenButtonText}>
-                Log in
-            </Text>
+        <TextInput style={styles.screenInputs} placeholder="Email ID " keyboardType="email-address"
+        onChangeText={(text)=>{ this.setState({emailId:text})}}
+        />
+        <TextInput style={styles.screenInputs} placeholder="password" secureTextEntry={true} 
+        onChangeText={(text)=>{this.setState({password:text})}}
+        />
+        <TouchableOpacity  
+        onPress={()=> {this.userLogin(this.state.emailId, this.state.password)}} style={styles.screenButton}>
+                <Text style={styles.screenButtonText}> Log in </Text>
         </TouchableOpacity>
-
           
-        <TouchableOpacity
-           style={styles.button}
-           onPress={()=>this.setState({ isModalVisible:true})}
+        <TouchableOpacity           
+           onPress={()=>this.setState({isModalVisible:true})}
            style={styles.screenButton}
            >
            <Text style={styles.screenButtonText}>SignUp</Text>

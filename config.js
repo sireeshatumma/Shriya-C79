@@ -10,6 +10,7 @@ require('@firebase/firestore');
     appId: "1:1097331301660:web:503665e49450dff915eed9"
   };
   // Initialize Firebase
+  if(!firebase.apps.length)
   firebase.initializeApp(firebaseConfig);
 
   export default firebase.firestore();

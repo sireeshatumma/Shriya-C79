@@ -1,6 +1,6 @@
 import  React, {Component} from 'react';
 import { View , TouchableOpacity, StyleSheet, Text} from 'react-native';
-import {DrawerNavigatorItems} from 'react-navigation-drawer';
+import {DrawerNavigatorItems,DrawerItems} from 'react-navigation-drawer';
 import firebase from 'firebase';
 
 export default class CustomSideBarMenu extends Component{
@@ -8,7 +8,8 @@ export default class CustomSideBarMenu extends Component{
         return(
             <View style={{flex:1}}>
         <View style={{ flex: 0.8}}>
-        <DrawerNavigatorItems {...this.props}  />
+        {/* <DrawerNavigatorItems {...this.props}  /> */}
+        <DrawerItems {...this.props}/>
       </View>
       <View  style={{flex:1}}>
         <TouchableOpacity

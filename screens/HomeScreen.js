@@ -65,12 +65,14 @@ export default class HomeScreen extends React.Component{
                         color:'#fff',
                         fontFamily:'serif',
                         fontSize:30,
-                        alignSelf:'center'
+                        alignSelf:'center',
+                        marginTop:100
                        }}
                >Home</Text>
        
         <View style={{flex:1}}>
           {
+           
             this.state.requestedThingsList.length === 0
             ?(
               <View style={{flex:1, fontSize: 20, justifyContent:'center', alignItems:'center'}}>
@@ -79,7 +81,7 @@ export default class HomeScreen extends React.Component{
             )
             :(
               <FlatList
-              style={styles.list}
+              
                 keyExtractor={this.keyExtractor}
                 data={this.state.requestedThingsList}
                 renderItem={this.renderItem}
@@ -94,9 +96,17 @@ export default class HomeScreen extends React.Component{
 
 const styles = StyleSheet.create({
 
-    list:{
-        color:'cyan',
-        borderColor:'blue',
-        borderWidth:2
+   
+    button:{
+      width:100,
+      height:30,
+      justifyContent:'center',
+      alignItems:'center',
+      backgroundColor:"#ff5722",
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+         height: 8
+       }
     }
 })
