@@ -30,7 +30,7 @@ export default class WelcomeScreen extends Component{
     }
 
     userSignUp=(emailId, password, confirmPassword)=>{
-        console.log("emailId",emailId)
+        
         if(password!== confirmPassword){
             return Alert.alert("password doesn't match \n Check Again")
         }else{
@@ -63,7 +63,7 @@ export default class WelcomeScreen extends Component{
     }
 
     userLogin=(emailId, password)=>{
-        console.log("emailId",this.state.emailId,emailId,password)
+        
         firebase.auth().signInWithEmailAndPassword(emailId, password)
         .then(()=>{
             this.props.navigation.navigate('Exchange')
@@ -77,7 +77,7 @@ export default class WelcomeScreen extends Component{
     }
 
     showModal=()=>{
-        console.log("modal",this.state.isModalVisible)
+        
         return(
         
             <Modal animationType="fade"
